@@ -1,0 +1,112 @@
+﻿<Syncfusion:RibbonWindow x:Class="DocumentEditor.MainWindow" 
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
+                         xmlns:this="clr-namespace:DocumentEditor"
+                         Icon="App.ico" Office2010Icon="/Assets/Syncfusion.png"
+                         SnapsToDevicePixels="True"
+                         IsGlassActive="False"
+                         x:Name="ribbonWindow"
+                         Title="{Binding DocumentTitle}"
+                         Width="1087"
+                         Height="635"
+                         WindowState="Normal"
+                         WindowStartupLocation="CenterScreen"
+                         Syncfusion:SkinStorage.VisualStyle="Office2013" Closed="ribbonWindow_Closed">
+
+    <Syncfusion:RibbonWindow.Resources>
+        <this:PercentageDoubleConverter x:Key="PercentageDoubleConverter" />
+        <this:PercentageStringConverter x:Key="PercentageStringConverter" />
+        <Syncfusion:SfRichTextRibbonResourceWrapper x:Key="SfRichTextRibbonResourceWrapper" />
+        <Style x:Key="StatusBarRibbonButtonStyle" TargetType="{x:Type Syncfusion:RibbonButton}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#FF00156E" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Label" Value="New Button" />
+            <Setter Property="LargeIcon">
+                <Setter.Value>
+                    <BitmapImage UriSource="pack://application:,,,/Syncfusion.Tools.WPF;component/Framework/Ribbon/Resources/WordArt32.png" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="SmallIcon">
+                <Setter.Value>
+                    <BitmapImage UriSource="pack://application:,,,/Syncfusion.Tools.WPF;component/Framework/Ribbon/Resources/WordArt16.png" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Style.Triggers>
+                <Trigger Property="SizeForm" Value="ExtraSmall">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Syncfusion:RibbonButton}">
+                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" IsEnabled="True" MinHeight="22" Opacity="{TemplateBinding Opacity}">
+                                    <Image x:Name="PART_Image" RenderOptions.BitmapScalingMode="NearestNeighbor" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsEnabled="True" Height="16" Margin="2" Source="{Binding SmallIcon, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Stretch="{Binding IconStretch, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="16" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="Bd" Value="#FF3E6DB5" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" TargetName="Bd" Value="#FF19478A" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" TargetName="Bd" Value="#FF19478A" />
+                                    </Trigger>
+                                    <Trigger Property="Syncfusion:SkinStorage.EnableTouch" Value="True">
+                                        <Setter Property="Padding" Value="5" />
+                                        <Setter Property="Height" TargetName="PART_Image" Value="20" />
+                                        <Setter Property="Width" TargetName="PART_Image" Value="20" />
+                                        <Setter Property="Width" TargetName="Bd" Value="47" />
+                                        <Setter Property="Height" TargetName="Bd" Value="30" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Syncfusion:RibbonWindow.Resources>
+
+
+
+    <Grid x:Name="Root">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Syncfusion:SfRichTextRibbon x:Name="richTextRibbon" SnapsToDevicePixels="True" />
+
+
+
+        <Syncfusion:DockingManager Grid.Row="1" x:Name="ockingManager" PersistState="False" UseDocumentContainer="True">
+
+            <ContentControl Name="Integration" Syncfusion:DockingManager.Header="File 1.doc" Syncfusion:DockingManager.State="Document" Syncfusion:DockingManager.OuterDockAbility="Horizontal" Syncfusion:DockingManager.DockAbility="Horizontal" Syncfusion:DockingManager.CanFloat="False">
+                <Syncfusion:SfRichTextBoxAdv x:Name="richTextBoxAdv" Background="#F1F1F1" Grid.Row="1" DocumentTitle="RichTextBoxAdv" LayoutType="Pages" GotFocus="richTextBoxAdv_GotFocus" EnableMiniToolBar="False">
+                </Syncfusion:SfRichTextBoxAdv>
+            </ContentControl>
+            <!-- Features dock window -->
+            <ContentControl Name="Features" Syncfusion:DockingManager.Header="File 2.doc" Syncfusion:DockingManager.State="Document" Syncfusion:DockingManager.OuterDockAbility="Horizontal" Syncfusion:DockingManager.DockAbility="Horizontal" Syncfusion:DockingManager.CanFloat="False">
+                <Syncfusion:SfRichTextBoxAdv x:Name="richTextBoxAdv2" Background="#F1F1F1" Grid.Row="1" DocumentTitle="RichTextBoxAdv2" LayoutType="Pages" GotFocus="richTextBoxAdv2_GotFocus" EnableMiniToolBar="False">
+                </Syncfusion:SfRichTextBoxAdv>
+            </ContentControl>
+            <!-- Docking dock window -->
+            <ContentControl Name="Docking" Syncfusion:DockingManager.Header="File 3.doc" Syncfusion:DockingManager.State="Document" Syncfusion:DockingManager.DockAbility="Horizontal" Syncfusion:DockingManager.CanFloat="False">
+                <Syncfusion:SfRichTextBoxAdv x:Name="richTextBoxAdv3" Background="#F1F1F1" Grid.Row="1" DocumentTitle="RichTextBoxAdv" LayoutType="Pages" GotFocus="richTextBoxAdv3_GotFocus" EnableMiniToolBar="False">
+                </Syncfusion:SfRichTextBoxAdv>
+            </ContentControl>
+        </Syncfusion:DockingManager>
+
+
+    </Grid>
+
+
+
+
+
+
+</Syncfusion:RibbonWindow>
